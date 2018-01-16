@@ -37,8 +37,8 @@ Name: "{cf}\ASCOM\Uninstall\ObservingConditions\ASCOM_WUAPI_ObsCon"
 Source: "D:\Dev\WU_ObsCon\WU_ObsCon\bin\Release\WU_ObsCon.dll"; DestDir: "{app}"
 ; Require a read-me HTML to appear after installation, maybe driver's Help doc
 Source: "D:\Dev\WU_ObsCon\WU_ObsCon\WUAPIObsCon_ReadMe.html"; DestDir: "{app}"; Flags: isreadme
-; TODO: Add other files needed by your driver here (add subfolders above)
-
+; Newtonsoft JSON library
+Source: "D:\Dev\WU_ObsCon\WU_ObsCon\bin\Release\Newtonsoft.Json.dll"; DestDir: "{app}"
 
 ; Only if driver is .NET
 [Run]
