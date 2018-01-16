@@ -1,0 +1,20 @@
+C:\Users\EorEquis\AppData\Local\Temporary Projects\WU_ObsCon\bin\Debug\ASCOM.Wunderground.ObservingConditions.dll.config
+C:\Users\EorEquis\AppData\Local\Temporary Projects\WU_ObsCon\bin\Debug\ASCOM.Wunderground.ObservingConditions.dll
+C:\Users\EorEquis\AppData\Local\Temporary Projects\WU_ObsCon\bin\Debug\ASCOM.Wunderground.ObservingConditions.pdb
+C:\Users\EorEquis\AppData\Local\Temporary Projects\WU_ObsCon\bin\Debug\ASCOM.Wunderground.ObservingConditions.tlb
+C:\Users\EorEquis\AppData\Local\Temporary Projects\WU_ObsCon\obj\Debug\ASCOM.Wunderground.Resources.resources
+C:\Users\EorEquis\AppData\Local\Temporary Projects\WU_ObsCon\obj\Debug\ASCOM.Wunderground.SetupDialogForm.resources
+C:\Users\EorEquis\AppData\Local\Temporary Projects\WU_ObsCon\obj\Debug\WU_ObsCon.vbproj.GenerateResource.Cache
+C:\Users\EorEquis\AppData\Local\Temporary Projects\WU_ObsCon\obj\Debug\ASCOM.Wunderground.ObservingConditions.dll
+C:\Users\EorEquis\AppData\Local\Temporary Projects\WU_ObsCon\obj\Debug\ASCOM.Wunderground.ObservingConditions.pdb
+D:\Dev\WU_ObsCon\WU_ObsCon\bin\Debug\WU_ObsCon.dll.config
+D:\Dev\WU_ObsCon\WU_ObsCon\bin\Debug\WU_ObsCon.dll
+D:\Dev\WU_ObsCon\WU_ObsCon\bin\Debug\WU_ObsCon.pdb
+D:\Dev\WU_ObsCon\WU_ObsCon\bin\Debug\WU_ObsCon.tlb
+D:\Dev\WU_ObsCon\WU_ObsCon\bin\Debug\Newtonsoft.Json.dll
+D:\Dev\WU_ObsCon\WU_ObsCon\bin\Debug\Newtonsoft.Json.xml
+D:\Dev\WU_ObsCon\WU_ObsCon\obj\Debug\ASCOM.Wunderground.Resources.resources
+D:\Dev\WU_ObsCon\WU_ObsCon\obj\Debug\ASCOM.Wunderground.SetupDialogForm.resources
+D:\Dev\WU_ObsCon\WU_ObsCon\obj\Debug\WU_ObsCon.vbproj.GenerateResource.Cache
+D:\Dev\WU_ObsCon\WU_ObsCon\obj\Debug\WU_ObsCon.dll
+D:\Dev\WU_ObsCon\WU_ObsCon\obj\Debug\WU_ObsCon.pdb

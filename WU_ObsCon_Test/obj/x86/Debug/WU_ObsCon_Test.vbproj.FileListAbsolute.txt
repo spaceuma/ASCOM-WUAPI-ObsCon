@@ -1,0 +1,12 @@
+D:\Dev\WU_ObsCon\WU_ObsCon_Test\bin\Debug\ASCOM.Wunderground.Test.exe.config
+D:\Dev\WU_ObsCon\WU_ObsCon_Test\bin\Debug\ASCOM.Wunderground.Test.exe
+D:\Dev\WU_ObsCon\WU_ObsCon_Test\bin\Debug\ASCOM.Wunderground.Test.pdb
+D:\Dev\WU_ObsCon\WU_ObsCon_Test\bin\Debug\ASCOM.Wunderground.Test.xml
+D:\Dev\WU_ObsCon\WU_ObsCon_Test\bin\Debug\Newtonsoft.Json.dll
+D:\Dev\WU_ObsCon\WU_ObsCon_Test\bin\Debug\Newtonsoft.Json.xml
+D:\Dev\WU_ObsCon\WU_ObsCon_Test\obj\x86\Debug\ASCOM.Wunderground.Form1.resources
+D:\Dev\WU_ObsCon\WU_ObsCon_Test\obj\x86\Debug\ASCOM.Wunderground.Resources.resources
+D:\Dev\WU_ObsCon\WU_ObsCon_Test\obj\x86\Debug\WU_ObsCon_Test.vbproj.GenerateResource.Cache
+D:\Dev\WU_ObsCon\WU_ObsCon_Test\obj\x86\Debug\ASCOM.Wunderground.Test.exe
+D:\Dev\WU_ObsCon\WU_ObsCon_Test\obj\x86\Debug\ASCOM.Wunderground.Test.xml
+D:\Dev\WU_ObsCon\WU_ObsCon_Test\obj\x86\Debug\ASCOM.Wunderground.Test.pdb
