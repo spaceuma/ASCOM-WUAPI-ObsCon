@@ -1,0 +1,11 @@
+D:\Dev\WU_ObsCon\WU_ObsCon\obj\Release\WU_ObsCon.vbprojResolveAssemblyReference.cache
+D:\Dev\WU_ObsCon\WU_ObsCon\obj\Release\ASCOM.Wunderground.Resources.resources
+D:\Dev\WU_ObsCon\WU_ObsCon\obj\Release\ASCOM.Wunderground.SetupDialogForm.resources
+D:\Dev\WU_ObsCon\WU_ObsCon\obj\Release\WU_ObsCon.vbproj.GenerateResource.Cache
+D:\Dev\WU_ObsCon\WU_ObsCon\obj\Release\WU_ObsCon.dll
+D:\Dev\WU_ObsCon\WU_ObsCon\obj\Release\WU_ObsCon.pdb
+D:\Dev\WU_ObsCon\WU_ObsCon\bin\Release\WU_ObsCon.dll.config
+D:\Dev\WU_ObsCon\WU_ObsCon\bin\Release\WU_ObsCon.dll
+D:\Dev\WU_ObsCon\WU_ObsCon\bin\Release\WU_ObsCon.pdb
+D:\Dev\WU_ObsCon\WU_ObsCon\bin\Release\Newtonsoft.Json.dll
+D:\Dev\WU_ObsCon\WU_ObsCon\bin\Release\Newtonsoft.Json.xml
