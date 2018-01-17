@@ -1,18 +1,14 @@
-<p>An ASCOM Observing Conditions driver that gets its information from Weather Underground.</p>
-<hr>
-<p>An extension of Chris Rowland's idea which utilizes the OpenWeatherMap API to populate an ASCOM Observing Conditions interface with data 
-rather than from physically connected hardware and sensors</p>
-<p>I felt there was an opportunity for this version, which uses the Weather Underground API, for 3 reasons :</p>
-<ul>
-<li>
-<p>WU offers considerably more observing stations to choose from, with a community of over 300,000 submitting stations around the world.  This greatly increases the likelihood that a user can find a station within 10 miles of his or her observing location.</p>
-</li>
-<li>
-<p>Many of OWM's staitons update only hourly.</p>
-</li>
-<li>
-<p>Uploading to OWM requires user ability to control and direct the station's activities.  If the user had this ability, they would not need to use OWM to store the data, and could instead feed sensor readings straight to the ASCOM driver themselves.  Many users either own hardware that prohibits this, or do not know how to interface directly with their unit.  Frequently, however, these stations/users have simple, easily understood methods for connecting the station to WU.  This opens up "Own data use" to a great many users.</p>
-</li>
-</ul>
-<hr>
-<p>Users require only the Station ID of their preferred Weather Underground Station to configure the driver.  No API key is required.</p>
+An ASCOM Observing Conditions driver that gets its information from Weather Underground.
+
+An extension of Chris Rowland's idea which utilizes the OpenWeatherMap API to populate an ASCOM Observing Conditions interface with data 
+rather than from physically connected hardware and sensors.
+
+I felt there was an opportunity for this version, which uses the Weather Underground API, for 3 reasons :
+
+* WU offers considerably more observing stations to choose from, with a community of over 300,000 submitting stations around the world.  This greatly increases the likelihood that a user can find a station within 10 miles of his or her observing location.
+
+* Many of OWM's staitons update only hourly.
+
+* Uploading to OWM requires user ability to control and direct the station's activities.  If the user had this ability, they would not need to use OWM to store the data, and could instead feed sensor readings straight to the ASCOM driver themselves.  Many users either own hardware that prohibits this, or do not know how to interface directly with their unit.  Frequently, however, these stations/users have simple, easily understood methods for connecting the station to WU.  This opens up "Own data use" to a great many users.
+
+Users require only the Station ID of their preferred Weather Underground Station to configure the driver.  No API key is required.
