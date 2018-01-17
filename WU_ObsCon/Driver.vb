@@ -33,13 +33,6 @@ Imports ASCOM.DeviceInterface
 Imports ASCOM.Utilities
 
 Imports System
-Imports System.Collections
-Imports System.Collections.Generic
-Imports System.Globalization
-Imports System.Runtime.InteropServices
-Imports System.Text
-Imports System.Net
-Imports System.IO
 Imports System.Xml
 
 
@@ -51,9 +44,6 @@ Public Class ObservingConditions
     ' The ClassInterface/None addribute prevents an empty interface called
     ' _Wunderground from being created and used as the [default] interface
 
-    ' TODO Replace the not implemented exceptions with code to implement the function or
-    ' throw the appropriate ASCOM exception.
-    '
     Implements IObservingConditions
 
     '

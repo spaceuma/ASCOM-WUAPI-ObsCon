@@ -42,4 +42,15 @@ Public Class SetupDialogForm
         txt_StationID.Text = ObservingConditions.StationID
     End Sub
 
+    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+        Try
+            System.Diagnostics.Process.Start("http://weatherunderground.com/")
+        Catch noBrowser As System.ComponentModel.Win32Exception
+            If noBrowser.ErrorCode = -2147467259 Then
+                MessageBox.Show(noBrowser.Message)
+            End If
+        Catch other As System.Exception
+            MessageBox.Show(other.Message)
+        End Try
+    End Sub
 End Class

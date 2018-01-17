@@ -159,6 +159,7 @@
     <Content Include="ReadMe.htm">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="wundergroundLogo_4c_horz.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
