@@ -9,7 +9,6 @@ Public Class SetupDialogForm
     Private Sub OK_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK_Button.Click ' OK button event handler
         ' Persist new values of user settings to the ASCOM profile
         ObservingConditions.traceState = chkTrace.Checked
-        ObservingConditions.APIKey = txt_APIKey.Text
         ObservingConditions.StationID = txt_StationID.Text
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.Close()
@@ -40,7 +39,6 @@ Public Class SetupDialogForm
 
     Private Sub InitUI()
         chkTrace.Checked = ObservingConditions.traceState
-        txt_APIKey.Text = ObservingConditions.APIKey
         txt_StationID.Text = ObservingConditions.StationID
     End Sub
 

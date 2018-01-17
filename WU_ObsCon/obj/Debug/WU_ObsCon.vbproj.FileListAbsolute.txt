@@ -13,6 +13,7 @@ D:\Dev\WU_ObsCon\WU_ObsCon\bin\Debug\WU_ObsCon.pdb
 D:\Dev\WU_ObsCon\WU_ObsCon\bin\Debug\WU_ObsCon.tlb
 D:\Dev\WU_ObsCon\WU_ObsCon\bin\Debug\Newtonsoft.Json.dll
 D:\Dev\WU_ObsCon\WU_ObsCon\bin\Debug\Newtonsoft.Json.xml
+D:\Dev\WU_ObsCon\WU_ObsCon\obj\Debug\WU_ObsCon.vbprojResolveAssemblyReference.cache
 D:\Dev\WU_ObsCon\WU_ObsCon\obj\Debug\ASCOM.Wunderground.Resources.resources
 D:\Dev\WU_ObsCon\WU_ObsCon\obj\Debug\ASCOM.Wunderground.SetupDialogForm.resources
 D:\Dev\WU_ObsCon\WU_ObsCon\obj\Debug\WU_ObsCon.vbproj.GenerateResource.Cache

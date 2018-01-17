@@ -30,8 +30,6 @@ Partial Class SetupDialogForm
         Me.label2 = New System.Windows.Forms.Label()
         Me.chkTrace = New System.Windows.Forms.CheckBox()
         Me.txt_StationID = New System.Windows.Forms.TextBox()
-        Me.txt_APIKey = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -44,7 +42,7 @@ Partial Class SetupDialogForm
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.OK_Button, 0, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Cancel_Button, 1, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(302, 289)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(152, 221)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
@@ -88,7 +86,7 @@ Partial Class SetupDialogForm
         Me.PictureBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PictureBox1.Cursor = System.Windows.Forms.Cursors.Hand
         Me.PictureBox1.Image = Global.ASCOM.Wunderground.My.Resources.Resources.ASCOM
-        Me.PictureBox1.Location = New System.Drawing.Point(447, 18)
+        Me.PictureBox1.Location = New System.Drawing.Point(318, 14)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(48, 56)
@@ -110,7 +108,7 @@ Partial Class SetupDialogForm
         'chkTrace
         '
         Me.chkTrace.AutoSize = True
-        Me.chkTrace.Location = New System.Drawing.Point(114, 222)
+        Me.chkTrace.Location = New System.Drawing.Point(111, 179)
         Me.chkTrace.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.chkTrace.Name = "chkTrace"
         Me.chkTrace.Size = New System.Drawing.Size(97, 24)
@@ -125,33 +123,13 @@ Partial Class SetupDialogForm
         Me.txt_StationID.Size = New System.Drawing.Size(253, 26)
         Me.txt_StationID.TabIndex = 9
         '
-        'txt_APIKey
-        '
-        Me.txt_APIKey.Location = New System.Drawing.Point(114, 177)
-        Me.txt_APIKey.Name = "txt_APIKey"
-        Me.txt_APIKey.Size = New System.Drawing.Size(253, 26)
-        Me.txt_APIKey.TabIndex = 10
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(30, 183)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(73, 20)
-        Me.Label3.TabIndex = 11
-        Me.Label3.Text = "API Key :"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'SetupDialogForm
         '
         Me.AcceptButton = Me.OK_Button
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel_Button
-        Me.ClientSize = New System.Drawing.Size(538, 352)
-        Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.txt_APIKey)
+        Me.ClientSize = New System.Drawing.Size(388, 284)
         Me.Controls.Add(Me.txt_StationID)
         Me.Controls.Add(Me.chkTrace)
         Me.Controls.Add(Me.label2)
@@ -180,7 +158,5 @@ Partial Class SetupDialogForm
     Private WithEvents label2 As System.Windows.Forms.Label
     Friend WithEvents chkTrace As System.Windows.Forms.CheckBox
     Friend WithEvents txt_StationID As System.Windows.Forms.TextBox
-    Friend WithEvents txt_APIKey As System.Windows.Forms.TextBox
-    Private WithEvents Label3 As System.Windows.Forms.Label
 
 End Class

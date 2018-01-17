@@ -14,6 +14,8 @@
 ' -----------	---	-----	-------------------------------------------------------
 ' 15-JAN-2018	EOR	1.0.0	Initial edit, from ObservingConditions template
 ' 16-JAN-2018	EOR	1.0.0	More work
+' 17-JAN-2018   EOR 1.1.0   Change to undocumented WU XML API, because the "real" API deliveres eroneous data, and WU won't even acknowledge this.
+'                           This also means no API key is needed.
 ' ---------------------------------------------------------------------------------
 '
 ' Your driver's ID is ASCOM.Wunderground.ObservingConditions
@@ -38,8 +40,8 @@ Imports System.Runtime.InteropServices
 Imports System.Text
 Imports System.Net
 Imports System.IO
-Imports Newtonsoft.Json
-Imports Newtonsoft.Json.Linq
+Imports System.Xml
+
 
 <Guid("3a09929a-30c1-4987-9d18-8c38476bdb43")> _
 <ClassInterface(ClassInterfaceType.None)> _
@@ -64,7 +66,6 @@ Public Class ObservingConditions
     Friend Shared LastUpdate As DateTime = "1/1/1970"
     Friend Shared IsUpdated As Boolean = False
     Friend Shared varDewPoint As Double = 0.0
-    Friend Shared strHumidity As String = ""
     Friend Shared varHumidity As Double = 0.0
     Friend Shared varPressure As Double = 0.0
     Friend Shared varRainRate As Double = 0.0
@@ -169,22 +170,18 @@ Public Class ObservingConditions
 
     Public Function DoUpdate() As Boolean
         If (DateTime.Now - LastUpdate).TotalMilliseconds > 30000 Then
-            Dim json As JObject = JObject.Parse(GetJSON())
-            Dim IsError As Object = json.SelectToken("response").SelectToken("error")
+            Dim wxXML As XmlDocument = GetXML()
 
-            varDewPoint = json.SelectToken("current_observation").SelectToken("dewpoint_c")
-            strHumidity = json.SelectToken("current_observation").SelectToken("relative_humidity")
-            strHumidity = Replace(strHumidity, "%", "")
-            varHumidity = CDbl(strHumidity)
-            ' Need to strip %, find out if leading 0s are included, convert to double
-            varPressure = json.SelectToken("current_observation").SelectToken("pressure_mb")
-            varRainRate = json.SelectToken("current_observation").SelectToken("precip_1hr_metric")
-            varTemperature = json.SelectToken("current_observation").SelectToken("temp_c")
-            varWindDirection = json.SelectToken("current_observation").SelectToken("wind_degrees")
-            varWindGust = json.SelectToken("current_observation").SelectToken("wind_gust_kph")
-            varWindGust = 0.2778 * varWindGust
-            varWindSpeed = json.SelectToken("current_observation").SelectToken("wind_kph")
-            varWindSpeed = 0.2778 * varWindSpeed
+            varDewPoint = CDbl(wxXML.SelectSingleNode("//current_observation/dewpoint_c").InnerText)
+            varHumidity = CDbl(wxXML.SelectSingleNode("//current_observation/relative_humidity").InnerText)
+            varPressure = CDbl(wxXML.SelectSingleNode("//current_observation/pressure_mb").InnerText)
+            varRainRate = CDbl(wxXML.SelectSingleNode("//current_observation/precip_1hr_metric").InnerText)
+            varTemperature = CDbl(wxXML.SelectSingleNode("//current_observation/temp_c").InnerText)
+            varWindDirection = CDbl(wxXML.SelectSingleNode("//current_observation/wind_degrees").InnerText)
+            varWindGust = CDbl(wxXML.SelectSingleNode("//current_observation/wind_gust_mph").InnerText)
+            varWindGust = varWindGust * 0.44704     'Convert from mph to mps
+            varWindSpeed = CDbl(wxXML.SelectSingleNode("//current_observation/wind_mph").InnerText)
+            varWindSpeed = varWindSpeed * 0.44704     'Convert from mph to mps
             LastUpdate = DateTime.Now
             Return True
         Else
@@ -193,21 +190,13 @@ Public Class ObservingConditions
 
     End Function
 
-    Public Function GetJSON() As String
+    Public Function GetXML() As XmlDocument
 
-        Dim URL As String = "http://api.wunderground.com/api/" + APIKey + "/conditions/q/pws:" + StationID + ".json"
-        Dim request As HttpWebRequest
-        Dim response As HttpWebResponse
-        Dim reader As StreamReader
-        Dim RawResp As String
-
-        request = DirectCast(WebRequest.Create(URL), HttpWebRequest)
-        response = DirectCast(request.GetResponse, HttpWebResponse)
-
-        reader = New StreamReader(response.GetResponseStream())
-
-        RawResp = reader.ReadToEnd()
-        Return RawResp
+        Dim URL As String = "http://api.wunderground.com/weatherstation/WXCurrentObXML.asp?ID=" & StationID
+        Dim reader As New XmlTextReader(URL)
+        Dim document As New XmlDocument
+        document.Load(reader)
+        Return document
 
     End Function
 
@@ -224,14 +213,13 @@ Public Class ObservingConditions
 
             If value Then
 
-                Dim json As JObject = JObject.Parse(GetJSON())
-                Dim IsError As Object = json.SelectToken("response").SelectToken("error")
-                If IsError Is Nothing Then
+                Dim wxXML As XmlDocument = GetXML()
+                Dim strError As String = wxXML.SelectSingleNode("//current_observation/station_id").InnerText
+                If strError = StationID Then
                     connectedState = True
                     TL.LogMessage("Connected Set", "Valid ID " + StationID + " and key " + APIKey)
                 Else
                     TL.LogMessage("Connected Set", "Error connecting to API")
-                    MsgBox(json.SelectToken("response").SelectToken("error").SelectToken("type").ToString) ' TODO : Remove this MsgBox
                 End If
 
             Else
@@ -321,32 +309,32 @@ Public Class ObservingConditions
 
     Public ReadOnly Property DewPoint() As Double Implements IObservingConditions.DewPoint
         Get
-            TL.LogMessage("DewPoint", varDewPoint)
             IsUpdated = CommandBool("")
+            TL.LogMessage("DewPoint", varDewPoint)
             Return varDewPoint
         End Get
     End Property
 
     Public ReadOnly Property Humidity() As Double Implements IObservingConditions.Humidity
         Get
-            TL.LogMessage("Humidity", varHumidity)
             IsUpdated = CommandBool("")
+            TL.LogMessage("Humidity", varHumidity)
             Return varHumidity
         End Get
     End Property
 
     Public ReadOnly Property Pressure() As Double Implements IObservingConditions.Pressure
         Get
-            TL.LogMessage("Pressure", varPressure)
             IsUpdated = CommandBool("")
+            TL.LogMessage("Pressure", varPressure)
             Return varPressure
         End Get
     End Property
 
     Public ReadOnly Property RainRate() As Double Implements IObservingConditions.RainRate
         Get
-            TL.LogMessage("RainRate", varRainRate)
             IsUpdated = CommandBool("")
+            TL.LogMessage("RainRate", varRainRate)
             Return varRainRate
         End Get
     End Property
@@ -389,8 +377,8 @@ Public Class ObservingConditions
 
     Public ReadOnly Property WindDirection() As Double Implements IObservingConditions.WindDirection
         Get
-            TL.LogMessage("WindDirection", varWindDirection)
             IsUpdated = CommandBool("")
+            TL.LogMessage("WindDirection", varWindDirection)
             Return varWindDirection
         End Get
     End Property
@@ -405,8 +393,8 @@ Public Class ObservingConditions
 
     Public ReadOnly Property WindSpeed() As Double Implements IObservingConditions.WindSpeed
         Get
-            TL.LogMessage("WindSpeed", varWindSpeed)
             IsUpdated = CommandBool("")
+            TL.LogMessage("WindSpeed", varWindSpeed)
             Return varWindSpeed
         End Get
     End Property
