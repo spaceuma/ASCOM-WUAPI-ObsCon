@@ -36,7 +36,7 @@ Name: "{cf}\ASCOM\Uninstall\ObservingConditions\ASCOM_WUAPI_ObsCon"
 [Files]
 Source: "D:\Dev\WU_ObsCon\WU_ObsCon\bin\Release\WU_ObsCon.dll"; DestDir: "{app}"
 ; Require a read-me HTML to appear after installation, maybe driver's Help doc
-Source: "D:\Dev\WU_ObsCon\WU_ObsCon\ReadMe.html"; DestDir: "{app}"; Flags: isreadme
+Source: "D:\Dev\WU_ObsCon\WU_ObsCon\WUAPI_ObsCon_ReadMe.htm"; DestDir: "{app}"; Flags: isreadme
 
 
 ; Only if driver is .NET
