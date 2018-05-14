@@ -64,6 +64,7 @@ Public Class ObservingConditions
     Friend Shared varWindGust As Double = 0.0
     Friend Shared varWindSpeed As Double = 0.0
     Friend Shared varTimeSinceLastUpdate As Double = 0.0
+    Friend Shared varClouds As Double = 0.0
 
     Friend Shared comPortProfileName As String = "COM Port" 'Constants used for Profile persistence
     Friend Shared traceStateProfileName As String = "Trace Level"
@@ -159,19 +160,48 @@ Public Class ObservingConditions
     End Function
 
     Public Function DoUpdate() As Boolean
-        If (DateTime.Now - LastUpdate).TotalMilliseconds > 30000 Then
+        TL.LogMessage("Time", CStr((DateTime.Now - LastUpdate).TotalMinutes))
+        If (DateTime.Now - LastUpdate).TotalMinutes > 5 Then 'Update every 10 minutes
             Dim wxXML As XmlDocument = GetXML()
+            TL.LogMessage("XML", wxXML.ToString)
+            Dim weatherText As String
+            varDewPoint = CDbl(wxXML.SelectSingleNode("//current_observation/dewpoint_c").InnerText.Replace(".", ","))
+            varHumidity = CDbl(wxXML.SelectSingleNode("//current_observation/relative_humidity").InnerText.Replace("%", ""))
+            varPressure = CDbl(wxXML.SelectSingleNode("//current_observation/pressure_mb").InnerText.Replace(".", ","))
+            varRainRate = CDbl(wxXML.SelectSingleNode("//current_observation/precip_1hr_metric").InnerText.Replace(".", ","))
+            varTemperature = CDbl(wxXML.SelectSingleNode("//current_observation/temp_c").InnerText.Replace(".", ","))
+            varWindDirection = CDbl(wxXML.SelectSingleNode("//current_observation/wind_degrees").InnerText.Replace(".", ","))
+            varWindGust = CDbl(wxXML.SelectSingleNode("//current_observation/wind_gust_kph").InnerText.Replace(".", ","))
+            varWindSpeed = CDbl(wxXML.SelectSingleNode("//current_observation/wind_kph").InnerText.Replace(".", ","))
+            weatherText = wxXML.SelectSingleNode("//current_observation/weather").InnerText
+            TL.LogMessage("Weather: ", weatherText)
+            If weatherText.Equals("Clear") Then 'Define clouds taking into account the weather status
+                varClouds = 0
+            ElseIf weatherText.Equals("Cloudy") Then
+                varClouds = 90
+            ElseIf weatherText.Equals("Fog") Then
+                varClouds = 70
+            ElseIf weatherText.Equals("Haze") Then
+                varClouds = 60
+            ElseIf weatherText.Equals("Mostly Cloudy") Then
+                varClouds = 80
+            ElseIf weatherText.Equals("Mostly Sunny") Then
+                varClouds = 20
+            ElseIf weatherText.Equals("Partly Cloudy") Then
+                varClouds = 60
+            ElseIf weatherText.Equals("Partly Sunny") Then
+                varClouds = 40
+            ElseIf weatherText.Equals("Sunny") Then
+                varClouds = 0
+            ElseIf weatherText.Equals("Overcast") Then
+                varClouds = 90
+            ElseIf weatherText.Equals("Scattered Clouds") Then
+                varClouds = 50
+            Else
+                varClouds = 100
+            End If
 
-            varDewPoint = CDbl(wxXML.SelectSingleNode("//current_observation/dewpoint_c").InnerText)
-            varHumidity = CDbl(wxXML.SelectSingleNode("//current_observation/relative_humidity").InnerText)
-            varPressure = CDbl(wxXML.SelectSingleNode("//current_observation/pressure_mb").InnerText)
-            varRainRate = CDbl(wxXML.SelectSingleNode("//current_observation/precip_1hr_metric").InnerText)
-            varTemperature = CDbl(wxXML.SelectSingleNode("//current_observation/temp_c").InnerText)
-            varWindDirection = CDbl(wxXML.SelectSingleNode("//current_observation/wind_degrees").InnerText)
-            varWindGust = CDbl(wxXML.SelectSingleNode("//current_observation/wind_gust_mph").InnerText)
-            varWindGust = varWindGust * 0.44704     'Convert from mph to mps
-            varWindSpeed = CDbl(wxXML.SelectSingleNode("//current_observation/wind_mph").InnerText)
-            varWindSpeed = varWindSpeed * 0.44704     'Convert from mph to mps
+
             LastUpdate = DateTime.Now
             Return True
         Else
@@ -182,7 +212,7 @@ Public Class ObservingConditions
 
     Public Function GetXML() As XmlDocument
 
-        Dim URL As String = "http://api.wunderground.com/weatherstation/WXCurrentObXML.asp?ID=" & StationID
+        Dim URL As String = StationID
         Dim reader As New XmlTextReader(URL)
         Dim document As New XmlDocument
         document.Load(reader)
@@ -205,7 +235,7 @@ Public Class ObservingConditions
 
                 Dim wxXML As XmlDocument = GetXML()
                 Dim strError As String = wxXML.SelectSingleNode("//current_observation/station_id").InnerText
-                If strError = StationID Then
+                If strError <> "" Then
                     connectedState = True
                     TL.LogMessage("Connected Set", "Valid ID " + StationID + " and key " + APIKey)
                 Else
@@ -292,8 +322,9 @@ Public Class ObservingConditions
 
     Public ReadOnly Property CloudCover() As Double Implements IObservingConditions.CloudCover
         Get
-            TL.LogMessage("CloudCover", "Get Not implemented")
-            Throw New ASCOM.PropertyNotImplementedException("CloudCover", False)
+            IsUpdated = CommandBool("")
+            TL.LogMessage("CloudCover", varClouds)
+            Return varClouds
         End Get
     End Property
 
@@ -391,25 +422,26 @@ Public Class ObservingConditions
 
     Public Function TimeSinceLastUpdate(PropertyName As String) As Double Implements IObservingConditions.TimeSinceLastUpdate
         varTimeSinceLastUpdate = (DateTime.Now - LastUpdate).TotalSeconds
+        TL.LogMessage("TimeSinceLastUpdate", "Latest : " & varTimeSinceLastUpdate.ToString)
         Select Case PropertyName.Trim.ToLowerInvariant
             Case ""
                 TL.LogMessage("TimeSinceLastUpdate", "Latest : " & varTimeSinceLastUpdate.ToString)
-                Return TimeSinceLastUpdate
+                Return varTimeSinceLastUpdate
             Case "cloudcover"
                 TL.LogMessage("TimeSinceLastUpdate", PropertyName & " - not implemented")
                 Throw New MethodNotImplementedException("TimeSinceLastUpdate(" + PropertyName + ")")
             Case "dewpoint"
                 TL.LogMessage("TimeSinceLastUpdate", PropertyName & " : " & varTimeSinceLastUpdate.ToString)
-                Return TimeSinceLastUpdate
+                Return varTimeSinceLastUpdate
             Case "humidity"
                 TL.LogMessage("TimeSinceLastUpdate", PropertyName & " : " & varTimeSinceLastUpdate.ToString)
-                Return TimeSinceLastUpdate
+                Return varTimeSinceLastUpdate
             Case "pressure"
                 TL.LogMessage("TimeSinceLastUpdate", PropertyName & " : " & varTimeSinceLastUpdate.ToString)
-                Return TimeSinceLastUpdate
+                Return varTimeSinceLastUpdate
             Case "rainrate"
                 TL.LogMessage("TimeSinceLastUpdate", PropertyName & " : " & varTimeSinceLastUpdate.ToString)
-                Return TimeSinceLastUpdate
+                Return varTimeSinceLastUpdate
             Case "skybrightness"
                 TL.LogMessage("TimeSinceLastUpdate", PropertyName & " - not implemented")
                 Throw New MethodNotImplementedException("TimeSinceLastUpdate(" + PropertyName + ")")
@@ -424,16 +456,16 @@ Public Class ObservingConditions
                 Throw New MethodNotImplementedException("TimeSinceLastUpdate(" + PropertyName + ")")
             Case "temperature"
                 TL.LogMessage("TimeSinceLastUpdate", PropertyName & " : " & varTimeSinceLastUpdate.ToString)
-                Return TimeSinceLastUpdate
+                Return varTimeSinceLastUpdate
             Case "winddirection"
                 TL.LogMessage("TimeSinceLastUpdate", PropertyName & " : " & varTimeSinceLastUpdate.ToString)
-                Return TimeSinceLastUpdate
+                Return varTimeSinceLastUpdate
             Case "windgust"
                 TL.LogMessage("TimeSinceLastUpdate", PropertyName & " : " & varTimeSinceLastUpdate.ToString)
-                Return TimeSinceLastUpdate
+                Return varTimeSinceLastUpdate
             Case "windspeed"
                 TL.LogMessage("TimeSinceLastUpdate", PropertyName & " : " & varTimeSinceLastUpdate.ToString)
-                Return TimeSinceLastUpdate
+                Return varTimeSinceLastUpdate
 
         End Select
         TL.LogMessage("TimeSinceLastUpdate", PropertyName & " - unrecognised")
@@ -446,8 +478,7 @@ Public Class ObservingConditions
             Case "averageperiod"
                 Return "Average period in hours, immediate values are only available"
             Case "cloudcover"
-                TL.LogMessage("SensorDescription", PropertyName & " - not implemented")
-                Throw New MethodNotImplementedException("SensorDescription(" + PropertyName + ")")
+                Return "Cloud cover in percentage from weather info"
             Case "dewpoint"
                 Return "Atmospheric dew point reported in °C."
             Case "humidity"

@@ -61,6 +61,6 @@
     ' TODO: Add additional UI and controls to test more of the driver being tested.
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        MsgBox(driver.DewPoint)
+        MsgBox(driver.Humidity)
     End Sub
 End Class
